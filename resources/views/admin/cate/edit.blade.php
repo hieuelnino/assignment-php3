@@ -1,0 +1,40 @@
+@extends('admin.layouts.main')
+@section('title')
+    Edit Category
+@endsection
+@section('content')
+    <div class="grid  place-items-center">
+        <div class="w-11/12 p-12 bg-white sm:w-8/12 md:w-1/2 lg:w-5/12">
+            <h1 class="text-xl font-semibold">Sửa danh mục </h1>
+            <form class="mt-6" method="POST" action="{{ route('danh-muc.update', ['id' => $model->id]) }}"
+                enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+                <label class="text-gray-600 font-light" for="name">Tên danh mục</label>
+                <input type='text' placeholder="Enter your input here" name="name" value="{{ $model->name }}"
+                    class="w-full mt-2 mb-6 px-6 py-3 border rounded-lg text-lg text-gray-700 focus:outline-none @error('name') bg-red-400 @enderror" />
+                @error('name')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
+                <label class="block" for="desc">
+                    <span class="text-gray-700">Logo</span>
+                </label>
+                <input type='file' name="logo"
+                    class="w-full mt-2 mb-6 px-6 py-3 border rounded-lg text-lg text-gray-700 focus:outline-none" />
+                @error('logo')
+                    <div class="text-red-500 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
+                <img src="{{ asset('storage/images/danh-muc/' . $model->logo) }}" alt="logo">
+                <button type="submit"
+                    class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-blue-600 shadow-lg focus:outline-none hover:bg-blue-900 hover:shadow-none">
+                    Edit
+                </button>
+
+            </form>
+        </div>
+    </div>
+@endsection
